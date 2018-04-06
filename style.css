@@ -227,3 +227,47 @@ article h3 {
 .company-odd .logo, .company-even .intro {
     text-align: right
 }
+@media only screen and (max-width: 2560px) {
+    #about {
+        background-image: url(images/top-background-2560.jpeg);
+    }
+    #ios-skills {
+        background-image: url(images/background-ios-2560.png);
+    }
+    #web-skills {
+        background-image: url(images/background-web-2560.png);
+    }
+}
+@media only screen and (max-width: 1920px) {
+    #about {
+        background-image: url(images/top-background-1920.jpeg);
+    }
+    #ios-skills {
+        background-image: url(images/background-ios-1920.png);
+    }
+    #web-skills {
+        background-image: url(images/background-web-1920.png);
+    }
+}
+@media only screen and (max-width: 1440px) {
+    #about {
+        background-image: url(images/top-background-1440.jpeg);
+    }
+    #ios-skills {
+        background-image: url(images/background-ios-1440.png);
+    }
+    #web-skills {
+        background-image: url(images/background-web-1440.png);
+    }
+}
+@media only screen and (max-width: 1280px) {
+    #about {
+        background-image: url(images/top-background-1280.jpeg);
+    }
+    #ios-skills {
+        background-image: url(images/background-ios-1280.png);
+    }
+    #web-skills {
+        background-image: url(images/background-web-1280.png);
+    }
+}

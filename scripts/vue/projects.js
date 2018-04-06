@@ -26,6 +26,15 @@ var projects = new Vue({
                 'screenshots': []
             },
             {
+                'title': "OK App",
+                'date': "2017 late to 2017 late",
+                'environment': "iOS",
+                'platform': "iPhone",
+                'intro': "",
+                'logo': "./images/appicons/icon-ok.jpg",
+                'screenshots': []
+            },
+            {
                 'title': "PokeTAXI - Customer",
                 'date': "2016 mid to 2016 late",
                 'environment': "iOS 9 and above",
