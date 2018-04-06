@@ -1,0 +1,229 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+html article {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+}
+article:nth-child(odd) {
+    background-color: #454545;
+}
+article:nth-child(odd) * {
+    color: #F8F8F8;
+}
+article h1 {
+    font-size: 2em;
+    font-family: -apple-system, BlinkMacSystemFont, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    line-height: 2em;
+}
+article h2 {
+    font-size: 1.8em;
+    font-weight: bold;
+    line-height: 1.5em;
+}
+article h3 {
+    font-size: 1.5em;
+    line-height: 1.2em;
+}
+#about {
+    background-image: url(images/top-background.jpeg);
+    background-position: bottom;
+    background-size:cover;
+    background-repeat:no-repeat;
+}
+#about .mask {
+    background-color: rgba(69, 69, 69, 0.8);
+    width: 100%;
+    height: 100%;
+}
+#about .text-container {
+    position: absolute;
+    bottom: 3em;
+    left: 4em;
+}
+#about h1 {
+    font-size: 4em;
+    line-height: 1.5em;
+}
+#about h2 {
+    font-size: 2.4em;
+    line-height: 1.5em;
+}
+#about .links {
+    margin-top: 1em;
+}
+#about .links a {
+    margin: 0 1em;
+}
+#about .links a:first-child {
+    margin: 0 1em 0 0 !important;
+}
+#ios-skills {
+    background-image: url(images/background-ios.png);
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    position: relative;
+    text-align: center;
+}
+#ios-skills .skills {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    right: 0;
+    top: 0;
+}
+.tags {
+    margin: 1em 0;
+}
+.tags .tag {
+    background-color: rgba(248,248,248,0.8);
+    border-radius: 4px;
+    text-align: center;
+    margin: 0.5em 0.3em;
+    padding: 0.2em 0.7em;
+    display: inline-block;
+}
+#web-skills {
+    background-image: url(images/background-web.png);
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    position: relative;
+    text-align: center;
+}
+#web-skills .skills {
+    width: 50%;
+    height: 100%;
+}
+#web-skills .tag {
+    background-color: rgba(69,69,69,0.8);
+}
+#projects {
+    background-image: url(./images/img-ipad.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: top center;
+    position: relative;
+}
+#projects #ipad-screen {
+    position: absolute;
+}
+#ipad-screen {
+    text-align: center;
+}
+#ipad-screen .app-container {
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+    grid-template-rows: 25% 25% 25% 25%;
+}
+#ipad-screen .app {
+    width: 100px;
+}
+#ipad-screen .appicon {
+    width: 100px;
+    height: 100px;
+    border-radius: 16px;
+    border-color: #454545;
+    border-width: 1px;
+    box-shadow: 0px 0px 2px #454545;
+}
+#ipad-screen .appname {
+    font-size: 0.6em;
+    font-weight: bold;
+    line-height: 1em;
+}
+#route {
+    text-align: center;
+    height: auto;
+}
+#route #path {
+    display: inline-grid;
+    grid-auto-rows: auto;
+    grid-auto-flow: row;
+    grid-row-gap: 20px;
+    width: 80%;
+    text-align: center;
+}
+#route .company-odd {
+    display: inline-grid;
+    grid-template-columns: 45% 10% 45%;
+    grid-template-areas: "logo point intro";
+    height: 114px;
+}
+#route .company-even {
+    display: inline-grid;
+    grid-template-columns: 45% 10% 45%;
+    grid-template-areas: "intro point logo";
+    height: 114px;
+}
+#route .logo {
+    grid-area: logo;
+}
+.company-odd .logo .bubble {
+    background-image: url(images/img-bubble-white.svg);
+    background-position: center right;
+    background-repeat: no-repeat;
+}
+.company-even .logo .bubble {
+    background-image: url(images/img-bubbleleft-white.svg);
+    background-position: center left;
+    background-repeat: no-repeat;
+}
+.company-odd .logo .bubble-dark {
+    background-image: url(images/img-bubble-dark.svg);
+    background-position: center right;
+    background-repeat: no-repeat;
+}
+.company-even .logo .bubble-dark {
+    background-image: url(images/img-bubbleleft-dark.svg);
+    background-position: center left;
+    background-repeat: no-repeat;
+}
+.company-odd .logo img {
+    margin-right: 20px;
+}
+.company-even .logo img {
+    margin-left: 20px;
+}
+.logo .bubble, .logo .bubble-dark {
+    display: inline-block;
+    width: 334px;
+    height: 114px;
+    text-align: center;
+    line-height: 114px;
+}
+.bubble img, .bubble-dark img {
+    vertical-align: middle;
+}
+#route .point {
+    grid-area: point;
+    position: relative;
+}
+.point img {
+    vertical-align: middle;
+    position: absolute;
+    top: calc(50% - 22px);
+    left: calc(50% - 22px);
+}
+#route .intro {
+    grid-area: intro;
+    font-size: 2em;
+    font-weight: bold;
+}
+.intro .name {
+    height: 114px;
+    line-height: 114px;
+}
+.company-odd .intro, .company-even .logo {
+    text-align: left;
+}
+.company-odd .logo, .company-even .intro {
+    text-align: right
+}

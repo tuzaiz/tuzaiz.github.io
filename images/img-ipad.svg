@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1440px" height="998px" viewBox="0 0 1440 998" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.2 (51160) - http://www.bohemiancoding.com/sketch -->
+    <title>img-ipad</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="-10.9786987%" y1="15.7965903%" x2="81.8554202%" y2="66.1716493%" id="linearGradient-1">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#D5D5D5" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#5D636B" offset="0%"></stop>
+            <stop stop-color="#43484F" offset="100%"></stop>
+        </linearGradient>
+        <path d="M72.0873786,0 L917.912621,0 C957.725381,-7.31378183e-15 990,32.2759271 990,72.090301 L990,1364.9097 C990,1404.72407 957.725381,1437 917.912621,1437 L72.0873786,1437 C32.2746188,1437 4.8756569e-15,1404.72407 0,1364.9097 L0,72.090301 C-4.8756569e-15,32.2759271 32.2746188,7.31378183e-15 72.0873786,0 Z" id="path-3"></path>
+        <filter x="-0.6%" y="-0.3%" width="101.4%" height="101.0%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="1" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="97.2746568%" id="linearGradient-5">
+            <stop stop-color="#DFE0E1" offset="0%"></stop>
+            <stop stop-color="#D1D3D5" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="99.0334024%" id="linearGradient-6">
+            <stop stop-color="#000000" offset="0%"></stop>
+            <stop stop-color="#585656" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="98.2680963%" id="linearGradient-7">
+            <stop stop-color="#000000" offset="0%"></stop>
+            <stop stop-color="#333232" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-8" x="485" y="62" width="19" height="19" rx="9.5"></rect>
+        <linearGradient x1="50%" y1="0%" x2="65.9629181%" y2="97.8495695%" id="linearGradient-9">
+            <stop stop-color="#24292F" offset="0%"></stop>
+            <stop stop-color="#85909F" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-10" x="38" y="126" width="914" height="1140"></rect>
+    </defs>
+    <g id="Webpage" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-HD-Copy-3" transform="translate(0.000000, -12.000000)">
+            <g id="img-ipad" transform="translate(720.500000, 512.000000) rotate(-90.000000) translate(-720.500000, -512.000000) translate(225.500000, -206.500000)">
+                <g id="Body">
+                    <g id="Rectangle-10">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                        <use fill="#F4F4F4" fill-rule="evenodd" xlink:href="#path-3"></use>
+                        <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-3"></use>
+                        <path stroke="url(#linearGradient-2)" stroke-width="2" d="M72.0873786,1 C32.8269126,1 1,32.8282028 1,72.090301 L1,1364.9097 C1,1404.1718 32.8269126,1436 72.0873786,1436 L917.912621,1436 C957.173087,1436 989,1404.1718 989,1364.9097 L989,72.090301 C989,32.8282028 957.173087,1 917.912621,1 L72.0873786,1 Z"></path>
+                    </g>
+                    <path d="M72.0873786,9.61204013 C37.5829867,9.61204013 9.61165049,37.5845103 9.61165049,72.090301 L9.61165049,1364.9097 C9.61165049,1399.41549 37.5829867,1427.38796 72.0873786,1427.38796 L917.912621,1427.38796 C952.417013,1427.38796 980.38835,1399.41549 980.38835,1364.9097 L980.38835,72.090301 C980.38835,37.5845103 952.417013,9.61204013 917.912621,9.61204013 L72.0873786,9.61204013 Z M72.0873786,0 L917.912621,0 C957.725381,-7.31378183e-15 990,32.2759271 990,72.090301 L990,1364.9097 C990,1404.72407 957.725381,1437 917.912621,1437 L72.0873786,1437 C32.2746188,1437 4.8756569e-15,1404.72407 0,1364.9097 L0,72.090301 C-4.8756569e-15,32.2759271 32.2746188,7.31378183e-15 72.0873786,0 Z" id="Rectangle-10" fill="url(#linearGradient-5)" fill-rule="nonzero"></path>
+                </g>
+                <g id="Camera">
+                    <use fill="url(#linearGradient-6)" fill-rule="evenodd" xlink:href="#path-8"></use>
+                    <rect stroke="url(#linearGradient-7)" stroke-width="1" x="485.5" y="62.5" width="18" height="18" rx="9"></rect>
+                </g>
+                <path d="M494,1390 C469.147186,1390 449,1369.85281 449,1345 C449,1320.14719 469.147186,1300 494,1300 C518.852814,1300 539,1320.14719 539,1345 C539,1369.85281 518.852814,1390 494,1390 Z M494,1385.26316 C516.236728,1385.26316 534.263158,1367.23673 534.263158,1345 C534.263158,1322.76327 516.236728,1304.73684 494,1304.73684 C471.763272,1304.73684 453.736842,1322.76327 453.736842,1345 C453.736842,1367.23673 471.763272,1385.26316 494,1385.26316 Z" id="Oval" fill="url(#linearGradient-9)" fill-rule="nonzero"></path>
+                <path d="M494,1390 C469.147186,1390 449,1369.85281 449,1345 C449,1320.14719 469.147186,1300 494,1300 C518.852814,1300 539,1320.14719 539,1345 C539,1369.85281 518.852814,1390 494,1390 Z M494,1385.26316 C516.236728,1385.26316 534.263158,1367.23673 534.263158,1345 C534.263158,1322.76327 516.236728,1304.73684 494,1304.73684 C471.763272,1304.73684 453.736842,1322.76327 453.736842,1345 C453.736842,1367.23673 471.763272,1385.26316 494,1385.26316 Z" id="Home-button" fill="url(#linearGradient-9)" fill-rule="nonzero"></path>
+                <g id="Screen">
+                    <use fill="#F8F8F8" fill-rule="evenodd" xlink:href="#path-10"></use>
+                    <rect stroke="#2C2C2C" stroke-width="1" x="38.5" y="126.5" width="913" height="1139"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

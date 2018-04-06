@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="334px" height="114px" viewBox="0 0 334 114" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>img-bubble-white</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M413.793113,272 L662.793113,272 C680.466225,272 694.793113,286.326888 694.793113,304 L694.793113,354 C694.793113,371.673112 680.466225,386 662.793113,386 L413.793113,386 C396.120001,386 381.793113,371.673112 381.793113,354 L381.793113,338.135522 L361,329 L381.793113,317.922251 L381.793113,304 C381.793113,286.326888 396.120001,272 413.793113,272 Z" id="path-1"></path>
+    </defs>
+    <g id="Webpage" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-HD-Copy-4" transform="translate(-361.000000, -272.000000)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="img-bubble-white" fill="#F8F8F8" transform="translate(527.896556, 329.000000) rotate(-180.000000) translate(-527.896556, -329.000000) " xlink:href="#path-1"></use>
+        </g>
+    </g>
+</svg>

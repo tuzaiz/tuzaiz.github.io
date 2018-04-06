@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Henry Tseng's portfolio</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+    </head>
+    <body>
+        <article id="about">
+            <div class="mask">
+                <div class="text-container">
+                    <h1>HELLO</h1>
+                    <h2>I'm Henry Tseng</h2>
+                    <h3>an iOS/Web developer who loves to make great products</h3>
+                    <links></links>
+                </div>
+            </div>
+        </article>
+        <article id="ios-skills">
+            <section class="skills">
+                <h1>iOS</h1>
+                <div>on Swift / Objective-C</div>
+                <div>Having experience of</div> 
+                <div class="tags">
+                    <h3>Frameworks</h3>
+                    <span class="tag" v-for="framework in ios.frameworks">{{framework.title}}</span>
+                </div>
+                <div class="tags">
+                    <h3>3rd party libraries</h3>
+                    <span class="tag" v-for="lib in ios.third">{{lib.title}}</span>
+                </div>
+                <div class="tags">
+                    <h3>Services or SDK</h3>
+                    <span class="tag" v-for="sdk in ios.sdks">{{sdk.title}}</span>
+                </div>
+            </section>
+        </article>
+        <article id="web-skills">
+            <div class="skills">
+                <h1>Frontend</h1>
+                <section id="frontend-skills">
+                    <div class="tags">
+                        <h3>Frameworks</h3>
+                        <span class="tag" v-for="framework in frontend.frameworks">{{ framework.title }}</span>
+                    </div>
+                </section>
+                <section id="backend-skills">
+                    <h1>Backend</h1>
+                    <div class="tags">
+                        <h3>Frameworks</h3>
+                        <span class="tag" v-for="framework in backend.frameworks">{{ framework.title }}</span>
+                    </div>
+                </section>
+            </div>
+        </article>
+        <article id="projects">
+            <div class="screen" id="ipad-screen">
+                <h1>Projects</h1>
+                <div class="app-container">
+                    <div v-for="project in projects" class="app">
+                        <img :src="project.logo" class="appicon" />
+                        <span class="appname">{{ project.title }}</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <article id="route">
+            <h1>Professional Experience</h1>
+            <div id="path">
+                <section v-for="(company, index) in companies" :class="companyClassName(index)">
+                    <div class="logo"><div :class="bubbleClassName(company)"><img :src="company.logo" /></div></div>
+                    <div class="point"><img src="./images/img-point.svg" /></div>
+                    <div class="intro"><div class="name">{{ company.name }}</div></div>
+                </section>
+            </div>
+        </article>
+    </body>
+</html>
+
+<script type="text/javascript" src="./scripts/vue/about.js"></script>
+<script type="text/javascript" src="./scripts/vue/skills.js"></script>
+<script type="text/javascript" src="./scripts/vue/route.js"></script>
+<script type="text/javascript" src="./scripts/vue/projects.js"></script>
