@@ -232,10 +232,10 @@ article h3 {
         background-image: url(images/top-background-2560.jpg);
     }
     #ios-skills {
-        background-image: url(images/background-ios-2560.png);
+        background-image: url(images/background-ios-2560.jpg);
     }
     #web-skills {
-        background-image: url(images/background-web-2560.png);
+        background-image: url(images/background-web-2560.jpg);
     }
 }
 @media only screen and (max-width: 1920px) {
@@ -243,10 +243,10 @@ article h3 {
         background-image: url(images/top-background-1920.jpg);
     }
     #ios-skills {
-        background-image: url(images/background-ios-1920.png);
+        background-image: url(images/background-ios-1920.jpg);
     }
     #web-skills {
-        background-image: url(images/background-web-1920.png);
+        background-image: url(images/background-web-1920.jpg);
     }
 }
 @media only screen and (max-width: 1440px) {
@@ -254,10 +254,10 @@ article h3 {
         background-image: url(images/top-background-1440.jpg);
     }
     #ios-skills {
-        background-image: url(images/background-ios-1440.png);
+        background-image: url(images/background-ios-1440.jpg);
     }
     #web-skills {
-        background-image: url(images/background-web-1440.png);
+        background-image: url(images/background-web-1440.jpg);
     }
 }
 @media only screen and (max-width: 1280px) {
@@ -265,9 +265,9 @@ article h3 {
         background-image: url(images/top-background-1280.jpg);
     }
     #ios-skills {
-        background-image: url(images/background-ios-1280.png);
+        background-image: url(images/background-ios-1280.jpg);
     }
     #web-skills {
-        background-image: url(images/background-web-1280.png);
+        background-image: url(images/background-web-1280.jpg);
     }
 }
