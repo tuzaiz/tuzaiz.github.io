@@ -136,6 +136,21 @@ var iosSkills = new Vue({
                     "title": "Zendesk",
                     "url": "",
                     "description": ""
+                },
+                {
+                    "title": "Bitrise",
+                    "url": "",
+                    "description": ""
+                },
+                {
+                    "title": "Buddybuild",
+                    "url": "",
+                    "description": ""
+                },
+                {
+                    "title": "Jenkins",
+                    "url": "",
+                    "description": ""
                 }
             ]
         }
@@ -161,23 +176,103 @@ var webSkills = new Vue({
                     'title': "Bootstrap",
                     'url': "",
                     'description': ""
+                },
+                {
+                    'title': "SASS/SCSS",
+                    'url': "",
+                    'description': ""
+                },
+                {
+                    'title': "Compass",
+                    'url': "",
+                    'description': ""
+                },
+                {
+                    'title': "CoffeeScript",
+                    'url': "",
+                    'description': ""
+                },
+                {
+                    'title': "jQuery",
+                    'url': "",
+                    'description': ""
+                },
+                {
+                    'title': "Firebase",
+                    'url': "",
+                    'description': ""
+                },
+                {
+                    'title': "Socket.io",
+                    'url': "",
+                    'description': ""
                 }
             ]
         },
         'backend': {
             'frameworks': [
                 {
-                    'title': "Express (Node.js)",
+                    'title': "Node.js",
                     'url': "",
                     'description': ""
                 },
                 {
-                    'title': "Django (Python)",
+                    'title': "Express",
                     'url': "",
                     'description': ""
                 },
                 {
-                    'title': "Rails (Ruby)",
+                    'title': "Python",
+                    'url': "",
+                    'description': ""
+                },
+                {
+                    'title': "Django",
+                    'url': "",
+                    'description': ""
+                },
+                {
+                    'title': "Ruby on Rails",
+                    'url': "",
+                    'description': ""
+                },
+                {
+                    'title': "PHP",
+                    'url': "",
+                    'description': ""
+                },
+                {
+                    'title': "Vapor",
+                    'url': "",
+                    'description': ""
+                },
+                {
+                    'title': "MySQL",
+                    'url': "",
+                    'description': ""
+                },
+                {
+                    'title': "MongoDB",
+                    'url': "",
+                    'description': ""
+                },
+                {
+                    'title': "PostgreSQL",
+                    'url': "",
+                    'description': ""
+                },
+                {
+                    'title': "SQLite",
+                    'url': "",
+                    'description': ""
+                },
+                {
+                    'title': "AWS EC2",
+                    'url': "",
+                    'description': ""
+                },
+                {
+                    'title': "AWS S3",
                     'url': "",
                     'description': ""
                 }
