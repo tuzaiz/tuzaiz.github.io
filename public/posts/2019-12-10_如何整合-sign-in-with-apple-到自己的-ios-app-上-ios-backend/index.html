@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>如何整合 Sign in with Apple 到自己的 iOS App 上 (iOS &amp; Backend) | Henry Tseng</title>
+<meta name="keywords" content="">
+<meta name="description" content="
+根據蘋果的規定，明年四月之後只要你的 App 中有包含任一第三方登入就必須支援 Sign in with Apple，要不然就無法通過審核上架。
+因此稍微花了點時間去研究該如何整合 Sign in with Apple 到 iOS App 裡面，同時為了跟 Backend 說明這個流程也就一併理解 Backend 這邊該怎麼處理，在這邊就分成 App 端與 Server 端來分別說明。
+
+這邊講到的只有要讓 iOS App 支援 Sign in with Apple 部分，如果你的服務是跨平臺，希望讓 Web、Android 也能支援的話，需要在 Apple Developer 上再新建一個 Services ID，然後利用官方提供的 JS Library 或自己串接官方的 API Endpoints
+iOS App 端
+App 端串接 Sign in with Apple 相當簡單，大致分成五個步驟
+Apple Developer 後臺啓用 Sign in with Apple
+請先前往 https://developer.apple.com/account/resources/identifiers/list
+然後點開自己的 App ID 找到 Sign in with Apple 並啓用它">
+<meta name="author" content="兔子">
+<link rel="canonical" href="http://localhost:1313/posts/2019-12-10_%E5%A6%82%E4%BD%95%E6%95%B4%E5%90%88-sign-in-with-apple-%E5%88%B0%E8%87%AA%E5%B7%B1%E7%9A%84-ios-app-%E4%B8%8A-ios-backend/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.f49d66caae9ea0fd43f21f29e71a8d3e284517ed770f2aa86fa012953ad3c9ef.css" integrity="sha256-9J1myq6eoP1D8h8p5xqNPihFF&#43;13Dyqob6ASlTrTye8=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/2019-12-10_%E5%A6%82%E4%BD%95%E6%95%B4%E5%90%88-sign-in-with-apple-%E5%88%B0%E8%87%AA%E5%B7%B1%E7%9A%84-ios-app-%E4%B8%8A-ios-backend/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Henry Tseng (Alt + H)">Henry Tseng</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      如何整合 Sign in with Apple 到自己的 iOS App 上 (iOS &amp; Backend)
+    </h1>
+    <div class="post-meta"><span title='2019-12-10 12:42:22.68 +0000 UTC'>December 10, 2019</span>&nbsp;·&nbsp;兔子
+
+</div>
+  </header> 
+  <div class="post-content"><p><img alt="image" loading="lazy" src="/posts/2019-12-10_%E5%A6%82%E4%BD%95%E6%95%B4%E5%90%88-sign-in-with-apple-%E5%88%B0%E8%87%AA%E5%B7%B1%E7%9A%84-ios-app-%E4%B8%8A-ios-backend/images/1.png#layoutTextWidth">
+根據<a href="https://developer.apple.com/app-store/review/guidelines/#sign-in-with-apple">蘋果的規定</a>，明年四月之後只要你的 App 中有包含<strong>任一第三方登入</strong>就必須支援 Sign in with Apple，要不然就無法通過審核上架。</p>
+<p>因此稍微花了點時間去研究該如何整合 Sign in with Apple 到 iOS App 裡面，同時為了跟 Backend 說明這個流程也就一併理解 Backend 這邊該怎麼處理，在這邊就分成 App 端與 Server 端來分別說明。</p>
+<blockquote>
+<p>這邊講到的只有要讓 iOS App 支援 Sign in with Apple 部分，如果你的服務是跨平臺，希望讓 Web、Android 也能支援的話，需要在 Apple Developer 上再新建一個 Services ID，然後利用官方提供的 JS Library 或自己串接官方的 API Endpoints</p></blockquote>
+<h3 id="ios-app-端">iOS App 端<a hidden class="anchor" aria-hidden="true" href="#ios-app-端">#</a></h3>
+<p>App 端串接 Sign in with Apple 相當簡單，大致分成五個步驟</p>
+<h4 id="apple-developer-後臺啓用-sign-in-with-apple">Apple Developer 後臺啓用 Sign in with Apple<a hidden class="anchor" aria-hidden="true" href="#apple-developer-後臺啓用-sign-in-with-apple">#</a></h4>
+<p>請先前往 <a href="https://developer.apple.com/account/resources/identifiers/list">https://developer.apple.com/account/resources/identifiers/list</a></p>
+<p>然後點開自己的 App ID 找到 Sign in with Apple 並啓用它</p>
+<p><img alt="image" loading="lazy" src="/posts/2019-12-10_%E5%A6%82%E4%BD%95%E6%95%B4%E5%90%88-sign-in-with-apple-%E5%88%B0%E8%87%AA%E5%B7%B1%E7%9A%84-ios-app-%E4%B8%8A-ios-backend/images/2.png#layoutTextWidth"></p>
+<blockquote>
+<p>咳… App ID 有更新所以記得 Provision profiles 也要更新一下</p></blockquote>
+<h4 id="新增-entitlement">新增 Entitlement<a hidden class="anchor" aria-hidden="true" href="#新增-entitlement">#</a></h4>
+<p>打開 Xcode 11，點開 Project 切換到 App 的 Target，選擇上排的 Signing &amp; Capabilities</p>
+<p>點下左上角 <strong>+ Capability</strong> 按鈕，新增 Sign in with Apple</p>
+<p><img alt="image" loading="lazy" src="/posts/2019-12-10_%E5%A6%82%E4%BD%95%E6%95%B4%E5%90%88-sign-in-with-apple-%E5%88%B0%E8%87%AA%E5%B7%B1%E7%9A%84-ios-app-%E4%B8%8A-ios-backend/images/3.png#layoutTextWidth"></p>
+<h4 id="加入-sign-in-with-apple-button">加入 Sign in with Apple Button<a hidden class="anchor" aria-hidden="true" href="#加入-sign-in-with-apple-button">#</a></h4>
+<p>Apple 在 iOS 13 上有提供預設的按鈕，可以經由實作 <strong>ASAuthorizationAppleIDButton</strong> 來加到自己的 UI 上，不過沒有規定一定要使用這個按鈕，如果要符合自己 App 的設計風格可以自己實作一個 UIButton</p>
+<p>ASAuthorizationAppleIDButton 主要有三個參數可以選擇外觀</p>
+<ul>
+<li>ASAuthorizationAppleIDButton.ButtonType
+決定按鈕的內容文字，有四種值可以使用： signIn, signUp (iOS 13.2 以上支援), continue, default</li>
+<li>ASAuthorizationAppleIDButton.Style
+決定按鈕的風格，有三種值可以設定： white, whiteOutline, black</li>
+<li>cornerRadius
+圓角&gt; 樣式可以參考 <a href="https://developer.apple.com/design/human-interface-guidelines/sign-in-with-apple/overview/">Design Guidelines</a><code>let button = ASAuthorizationAppleIDButton(authorizationButtonType: .default, authorizationButtonStyle: .black)   button.cornerRadius = 8.0   button.addTarget(self, action: #selector(appleLoginButtonTapped), for: .touchUpInside)</code></li>
+</ul>
+<h4 id="請求登入動作">請求登入動作<a hidden class="anchor" aria-hidden="true" href="#請求登入動作">#</a></h4>
+<p>在處理點擊按鈕的 Method 中加上下面的 Code，<strong>requestedScopes</strong> 可以根據需求選擇要使用者提供的個人資料</p>
+<blockquote>
+<p>注意： 使用者是可以建立一個假的 email，寄到這的信件會轉發到原本的 email address，因此請不要把這裡的 email 拿來當做使用者的 ID，請使用它提供的 UID<code>let provider = ASAuthorizationAppleIDProvider()   let request = provider.createRequest()   request.requestedScopes = [.email, .fullName]   let controller = ASAuthorizationController(authorizationRequests: [request])   controller.delegate = self   controller.presentationContextProvider = self   controller.performRequests()</code></p></blockquote>
+<h4 id="取得-credential-後上傳到伺服器">取得 Credential 後上傳到伺服器<a hidden class="anchor" aria-hidden="true" href="#取得-credential-後上傳到伺服器">#</a></h4>
+<p>加入 <strong>ASAuthorizationControllerDelegate</strong> 和 <strong>ASAuthorizationControllerPresentationContextProviding</strong> 的實作，當登入成功後就會經由 Delegate 取得登入的 Credential</p>
+<p>Credential 裡面會包含以下的資料：</p>
+<ul>
+<li>Authorization Code</li>
+<li>Identity Token</li>
+<li>Email (Optional)</li>
+<li>User Identifier</li>
+<li>Name (Family Name / Given Name…) (Optional)<code>extension LoginViewController: ASAuthorizationControllerDelegate {   func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {   guard let credential = authorization.credential as? ASAuthorizationAppleIDCredential else {   return   }   // upload credential to api   }``    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {   // Show error   }   }``extension LoginViewController: ASAuthorizationControllerPresentationContextProviding {   func presentationAnchor(for controller: ASAuthorizationController) -&amp;gt; ASPresentationAnchor {   return self.view.window!   }   }</code></li>
+</ul>
+<p>收到 Credential 後就可以把裡面的 Authorization Code、Identity Token、UID 跟其他資料上傳到 API 做驗證，如果你的 App 不需要伺服器驗證的話那你已經成功支援 Sign in with Apple 了。</p>
+<p>接下來就可以測試了，點下按鈕後如果 iCloud 有登入且有開啓二階段認證的話，就會跳出以下的畫面：</p>
+<p><img alt="image" loading="lazy" src="/posts/2019-12-10_%E5%A6%82%E4%BD%95%E6%95%B4%E5%90%88-sign-in-with-apple-%E5%88%B0%E8%87%AA%E5%B7%B1%E7%9A%84-ios-app-%E4%B8%8A-ios-backend/images/4.jpeg#layoutTextWidth"></p>
+<p>到此，App 端就準備好了，接著換 Server 端的實作</p>
+<h3 id="server-端">Server 端<a hidden class="anchor" aria-hidden="true" href="#server-端">#</a></h3>
+<p>Apple 的登入是採用 JWT 的認證方式，在 Client 端登入成功後會取得一組 Identity Code 與 Authorization Token，當 App 成功後就把 Identity Code 與 Authorization Token 與註冊資料一併上傳到 Server api</p>
+<blockquote>
+<p>以下的範例使用的是 <strong>Node.js + Express，並使用</strong> <a href="https://github.com/request/request">request</a>、<a href="https://github.com/auth0/node-jsonwebtoken">jsonwebtoken</a> 與 <a href="https://github.com/panva/jose">jose</a></p></blockquote>
+<h4 id="事前準備">事前準備<a hidden class="anchor" aria-hidden="true" href="#事前準備">#</a></h4>
+<p><strong>Auth Key &amp; Key ID</strong></p>
+<p>請先到 <a href="https://developer.apple.com/account/resources/authkeys/list">https://developer.apple.com/account/resources/authkeys/list</a> 建立一組支援 Sign in with Apple 的 Key</p>
+<p><img alt="image" loading="lazy" src="/posts/2019-12-10_%E5%A6%82%E4%BD%95%E6%95%B4%E5%90%88-sign-in-with-apple-%E5%88%B0%E8%87%AA%E5%B7%B1%E7%9A%84-ios-app-%E4%B8%8A-ios-backend/images/5.png#layoutTextWidth"></p>
+<p>建立完成並下載，這組 Key 會是 p8 格式，同時請記住網頁上顯示的 Key ID</p>
+<blockquote>
+<p>這組 Key 只能下載一次，請保存在安全的地方</p></blockquote>
+<p><strong>Team ID</strong></p>
+<p>App 所在 Team 的 ID，可由 Apple Developer 後臺的 Membership 取得</p>
+<h4 id="下載-apple-public-key">下載 Apple Public Key<a hidden class="anchor" aria-hidden="true" href="#下載-apple-public-key">#</a></h4>
+<p>Apple 有提供一組 API 以下載 JWKS 格式的 Public Key，在 API 一開始先到它提供的 URL 去下載這組 Public Key</p>
+<p>URL: <a href="https://appleid.apple.com/auth/keys">https://appleid.apple.com/auth/keys</a></p>
+<p><a href="https://developer.apple.com/documentation/signinwithapplerestapi/fetch_apple_s_public_key_for_verifying_token_signature">API 文件連結</a>
+<code>// Fetch public key from Apple``request(&amp;#34;https://appleid.apple.com/auth/keys&amp;#34;, function(error, response, body) {   // verify identity token``}</code></p>
+<h4 id="檢查-identity-token">檢查 Identity Token<a hidden class="anchor" aria-hidden="true" href="#檢查-identity-token">#</a></h4>
+<p>Identity Token 是由 Apple 建立的 JWS 簽名，利用剛剛下載的 Public Key (JWKS 格式) 去做 JWS 驗證，確認這是由 Apple 所簽發的
+<code>let jwks = jose.JWKS.asKeyStore(JSON.parse(body))``// JWS Verify``if (jose.JWS.verify(token, jwks)) {``    // Verified   }</code></p>
+<p>同時最好檢查這個 JWS 的 Payload 中包括</p>
+<ul>
+<li>iss 是不是來自 <a href="https://appleid.apple.com">https://appleid.apple.com</a></li>
+<li>aud 跟自己的 client_id 有沒有相同</li>
+<li>確認時間是否沒有超過 exp 的時間</li>
+</ul>
+<h4 id="用-authorization-code-跟-apple-交換-access-token">用 Authorization Code 跟 Apple 交換 Access Token<a hidden class="anchor" aria-hidden="true" href="#用-authorization-code-跟-apple-交換-access-token">#</a></h4>
+<p>將取得的 Authorization Token 送到 Apple 的 Verify API，如果 token 是合法的就會收到一組 Access Token 與 Refresh Token</p>
+<p><strong>首先要建立 client_secret</strong></p>
+<p>先拿出剛剛下載的 Auth Key，可以放到伺服器上或是把裡面的內容利用字串的方式放到 Environment 裡面</p>
+<p>然後跟 Team ID, Key ID 和 App Bundle ID 一起建立一個 JWT 當做 Client Secret
+<code>let private_key = &amp;#34;-----BEGIN PRIVATE KEY-----\n......\n-----END PRIVATE KEY-----&amp;#34; // Should store in a safe place on server side``// Generate client secret``let client_secret = jwt.sign({``    iss: &amp;#34;YourTeamID&amp;#34;, // Team ID, should store in server side``    sub: &amp;#34;AppBundleID&amp;#34;, // Bundle ID, should store in server side``    aud: &amp;#34;https://appleid.apple.com&amp;#34;, // Fix value``    iat: Math.floor(Date.now() / 1000),``    exp: Math.floor(Date.now() / 1000) + (60 * 60)``}, private_key, {``    algorithm: &amp;#39;ES256&amp;#39;,``header: {``    alg: &amp;#39;ES256&amp;#39;,``    kid: &amp;#34;KeyID&amp;#34; // Key ID, should store in a safe place on server side``}   })</code></p>
+<p><strong>API 驗證</strong></p>
+<p>利用上面建立的 client_secret 、 client_id（App Bundle ID）與 Authorization Code 去跟 Apple 交換 Access Token 與 Refresh Token</p>
+<p>API 文件： <a href="https://developer.apple.com/documentation/signinwithapplerestapi/generate_and_validate_tokens">https://developer.apple.com/documentation/signinwithapplerestapi/generate_and_validate_tokens</a>
+<code>// Request verification for apple api``request.post({url: &amp;#34;https://appleid.apple.com/auth/token&amp;#34;, form: {``    client_id: client_id,``    client_secret: client_secret,``    code: code,``    grant_type: &amp;#34;authorization_code&amp;#34;``}}, function(err, response, body) {``    // Handle response``})</code></p>
+<h4 id="建立使用者帳號並回傳成功">建立使用者帳號並回傳成功<a hidden class="anchor" aria-hidden="true" href="#建立使用者帳號並回傳成功">#</a></h4>
+<p>確認這個帳號是正確的之後就可以把 UID, Refresh Token 寫入資料庫並完成回傳，這樣就完成了註冊/登入的動作</p>
+<h4 id="確認登入狀態">確認登入狀態<a hidden class="anchor" aria-hidden="true" href="#確認登入狀態">#</a></h4>
+<p>如果某些時候需要知道使用者是否依然有授權給 App 登入的話，可以拿之前儲存的 Refresh Token 再去跟 Apple Server 確認一次，如果正常回傳就是使用者仍然有授權，如果已經取消授權的話會回覆錯誤
+<code>request.post({``    url: &amp;#34;https://appleid.apple.com/auth/token&amp;#34;, form: {``        client_id: client_id,``        client_secret: client_secret,``        grant_type: &amp;#34;refresh_token&amp;#34;,``        refresh_token: refreshToken``    }``}, function(err, response, body) {``    // Handle response``})</code></p>
+<p>以上的範例可以在此 <a href="https://gist.github.com/tuzaiz/76794a0db9e8b2b9e08fe2375d8d3ddd">參考完整版本</a></p>
+<h3 id="參考文件">參考文件<a hidden class="anchor" aria-hidden="true" href="#參考文件">#</a></h3>
+<ol>
+<li><a href="https://developer.apple.com/documentation/signinwithapplerestapi/authenticating_users_with_sign_in_with_apple">https://developer.apple.com/documentation/signinwithapplerestapi/authenticating_users_with_sign_in_with_apple</a></li>
+<li><a href="https://developer.apple.com/documentation/signinwithapplerestapi/verifying_a_user">https://developer.apple.com/documentation/signinwithapplerestapi/verifying_a_user</a></li>
+</ol>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="http://localhost:1313/">Henry Tseng</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

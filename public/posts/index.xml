@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Henry Tseng</title>
-    <link>http://localhost:1313/</link>
-    <description>Recent content on Henry Tseng</description>
+    <title>Posts on Henry Tseng</title>
+    <link>http://localhost:1313/posts/</link>
+    <description>Recent content in Posts on Henry Tseng</description>
     <generator>Hugo -- 0.145.0</generator>
     <language>zh-tw</language>
     <lastBuildDate>Fri, 21 Mar 2025 21:19:55 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>如何整合 Sign in with Apple 到自己的 iOS App 上 (iOS &amp; Backend)</title>
       <link>http://localhost:1313/posts/2019-12-10_%E5%A6%82%E4%BD%95%E6%95%B4%E5%90%88-sign-in-with-apple-%E5%88%B0%E8%87%AA%E5%B7%B1%E7%9A%84-ios-app-%E4%B8%8A-ios-backend/</link>
@@ -23,6 +23,13 @@
 &lt;h4 id=&#34;apple-developer-後臺啓用-sign-in-with-apple&#34;&gt;Apple Developer 後臺啓用 Sign in with Apple&lt;/h4&gt;
 &lt;p&gt;請先前往 &lt;a href=&#34;https://developer.apple.com/account/resources/identifiers/list&#34;&gt;https://developer.apple.com/account/resources/identifiers/list&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;然後點開自己的 App ID 找到 Sign in with Apple 並啓用它&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>有幫到忙太好了，有心得的話歡迎回來分享一下😁</title>
+      <link>http://localhost:1313/posts/2018-10-19_%E6%9C%89%E5%B9%AB%E5%88%B0%E5%BF%99%E5%A4%AA%E5%A5%BD%E4%BA%86%E6%9C%89%E5%BF%83%E5%BE%97%E7%9A%84%E8%A9%B1%E6%AD%A1%E8%BF%8E%E5%9B%9E%E4%BE%86%E5%88%86%E4%BA%AB%E4%B8%80%E4%B8%8B/</link>
+      <pubDate>Fri, 19 Oct 2018 16:41:04 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2018-10-19_%E6%9C%89%E5%B9%AB%E5%88%B0%E5%BF%99%E5%A4%AA%E5%A5%BD%E4%BA%86%E6%9C%89%E5%BF%83%E5%BE%97%E7%9A%84%E8%A9%B1%E6%AD%A1%E8%BF%8E%E5%9B%9E%E4%BE%86%E5%88%86%E4%BA%AB%E4%B8%80%E4%B8%8B/</guid>
+      <description>&lt;p&gt;有幫到忙太好了，有心得的話歡迎回來分享一下😁&lt;/p&gt;</description>
     </item>
     <item>
       <title>利用 Swift Playground 撰寫精美又可互動的技術文件</title>

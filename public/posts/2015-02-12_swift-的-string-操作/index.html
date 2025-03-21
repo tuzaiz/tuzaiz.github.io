@@ -5,11 +5,23 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="noindex, nofollow">
-<title>404 Page not found | Henry Tseng</title>
+<title>Swift 的 String 操作 | Henry Tseng</title>
 <meta name="keywords" content="">
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/404.html">
+<meta name="description" content="在Swift中有自己獨立的字串格式 String，操作的方法與NSString類似，將各種的操作方式整理在這邊方便大家查找。
+大概是為了跟Objective-C能夠相容，部分String methods依舊是跟NSString相同，但又多了些新的用法，所以整個用法很不統一，因此在寫這篇文章的同時，順手寫了一個Extension將這些方法整理在一起，可以用比較統一的方法去做字串操作。
+如果有人有興趣，可以參考： https://github.com/tuzaiz/RacoonString
+取得字串長度
+countElements(string) // Swift 1.0``count(string) // Swift 1.2
+RacoonString
+string.length() // RacoonString
+尋找字串
+var string = “Swift is awesome”``let range = string.rangeOfString(“awesome”)``if let range = range {``    // 尋找字串開始位置``    println(“Start with: \(range.startIndex)”)``    println(“End with: \(range.endIndex)”)``    // 取出要查詢的字串``    println(string[range])``}
+RacoonString
+string.match(&amp;#34;awesome&amp;#34;)   if let regex = &amp;#34;awe(some)&amp;#34; {   string.match(regex)``}
+抓出特定範圍的字串
+let r = 3..&amp;lt;5``let startIndex = advance(string.startIndex, r.startIndex)``let endIndex = advance(startIndex, r.endIndex — r.startIndex)``string[Range(start: startIndex, end: endIndex)]">
+<meta name="author" content="兔子">
+<link rel="canonical" href="http://localhost:1313/posts/2015-02-12_swift-%E7%9A%84-string-%E6%93%8D%E4%BD%9C/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.f49d66caae9ea0fd43f21f29e71a8d3e284517ed770f2aa86fa012953ad3c9ef.css" integrity="sha256-9J1myq6eoP1D8h8p5xqNPihFF&#43;13Dyqob6ASlTrTye8=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
@@ -18,7 +30,7 @@
 <link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/404.html">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/2015-02-12_swift-%E7%9A%84-string-%E6%93%8D%E4%BD%9C/">
 <noscript>
     <style>
         #theme-toggle,
@@ -58,7 +70,7 @@
 </noscript>
 </head>
 
-<body class="list" id="top">
+<body class="" id="top">
 <script>
     if (localStorage.getItem("pref-theme") === "dark") {
         document.body.classList.add('dark');
@@ -102,7 +114,59 @@
     </nav>
 </header>
 <main class="main">
-<div class="not-found">404</div>
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Swift 的 String 操作
+    </h1>
+    <div class="post-meta"><span title='2015-02-12 10:23:08.008 +0000 UTC'>February 12, 2015</span>&nbsp;·&nbsp;兔子
+
+</div>
+  </header> 
+  <div class="post-content"><p>在Swift中有自己獨立的字串格式 <strong>String</strong>，操作的方法與NSString類似，將各種的操作方式整理在這邊方便大家查找。</p>
+<p>大概是為了跟Objective-C能夠相容，部分String methods依舊是跟NSString相同，但又多了些新的用法，所以整個用法很不統一，因此在寫這篇文章的同時，順手寫了一個Extension將這些方法整理在一起，可以用比較統一的方法去做字串操作。</p>
+<p>如果有人有興趣，可以參考： <a href="https://github.com/tuzaiz/RacoonString">https://github.com/tuzaiz/RacoonString</a></p>
+<h3 id="取得字串長度">取得字串長度<a hidden class="anchor" aria-hidden="true" href="#取得字串長度">#</a></h3>
+<p><code>countElements(string) // Swift 1.0``count(string) // Swift 1.2</code></p>
+<h4 id="racoonstring">RacoonString<a hidden class="anchor" aria-hidden="true" href="#racoonstring">#</a></h4>
+<p><code>string.length() // RacoonString</code></p>
+<h3 id="尋找字串">尋找字串<a hidden class="anchor" aria-hidden="true" href="#尋找字串">#</a></h3>
+<p><code>var string = “Swift is awesome”``let range = string.rangeOfString(“awesome”)``if let range = range {``    // 尋找字串開始位置``    println(“Start with: \(range.startIndex)”)``    println(“End with: \(range.endIndex)”)``    // 取出要查詢的字串``    println(string[range])``}</code></p>
+<h4 id="racoonstring-1">RacoonString<a hidden class="anchor" aria-hidden="true" href="#racoonstring-1">#</a></h4>
+<p><code>string.match(&amp;#34;awesome&amp;#34;)   if let regex = &amp;#34;awe(some)&amp;#34; {   string.match(regex)``}</code></p>
+<h3 id="抓出特定範圍的字串">抓出特定範圍的字串<a hidden class="anchor" aria-hidden="true" href="#抓出特定範圍的字串">#</a></h3>
+<p><code>let r = 3..&amp;lt;5``let startIndex = advance(string.startIndex, r.startIndex)``let endIndex = advance(startIndex, r.endIndex — r.startIndex)``string[Range(start: startIndex, end: endIndex)]</code></p>
+<h4 id="racoonstring-2">RacoonString<a hidden class="anchor" aria-hidden="true" href="#racoonstring-2">#</a></h4>
+<p><code>string[3..&amp;lt;5]</code></p>
+<h3 id="切開字串">切開字串<a hidden class="anchor" aria-hidden="true" href="#切開字串">#</a></h3>
+<p><code>split(string, {$0==” ”}, maxSplit: Int.max, allowEmptySlices: false)</code></p>
+<p>或是
+<code>string.componentsSeparatedByString(“ “)</code></p>
+<h4 id="racoonstring-3">RacoonString<a hidden class="anchor" aria-hidden="true" href="#racoonstring-3">#</a></h4>
+<p><code>string.splitBy(&amp;#34; &amp;#34;)</code></p>
+<h3 id="連接字串">連接字串<a hidden class="anchor" aria-hidden="true" href="#連接字串">#</a></h3>
+<p><code>let joiner = “,”``joiner.join(matches)</code></p>
+<h3 id="取代字串">取代字串<a hidden class="anchor" aria-hidden="true" href="#取代字串">#</a></h3>
+<p><code>string.stringByReplacingOccurrencesOfString(“Swift”, withString: “Apple”, options: .LiteralSearch, range: nil)</code></p>
+<h4 id="racoonstring-4">RacoonString<a hidden class="anchor" aria-hidden="true" href="#racoonstring-4">#</a></h4>
+<p><code>string.sub(&amp;#34;Swift&amp;#34;, &amp;#34;Apple&amp;#34;)   string.sub(0..&amp;lt;5, &amp;#34;Apple&amp;#34;)</code></p>
+<h3 id="大小寫轉換">大小寫轉換<a hidden class="anchor" aria-hidden="true" href="#大小寫轉換">#</a></h3>
+<p><code>string.uppercaseString // 全部轉為大寫``string.capitalizedString // 每個單字第一個字大寫``string.lowercaseString // 全部轉為小寫</code></p>
+<h3 id="去除前後空白與換行">去除前後空白與換行<a hidden class="anchor" aria-hidden="true" href="#去除前後空白與換行">#</a></h3>
+<p><code>string.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())</code></p>
+<h4 id="racoonstring-5">RacoonString<a hidden class="anchor" aria-hidden="true" href="#racoonstring-5">#</a></h4>
+<p><code>string.trim()</code></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
     </main>
     
 <footer class="footer">

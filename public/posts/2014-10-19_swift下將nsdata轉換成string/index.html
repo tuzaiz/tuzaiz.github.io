@@ -5,11 +5,19 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="noindex, nofollow">
-<title>404 Page not found | Henry Tseng</title>
+<title>Swift下將NSData轉換成String | Henry Tseng</title>
 <meta name="keywords" content="">
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/404.html">
+<meta name="description" content="Swift中跟Foundation之間的恩怨情仇實在剪不斷理還亂。
+在Foundation中大部份I/O時都會取得NSData格式的資料，而以前在Objective-C時取得NSData要轉成NSString需要經過
+NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8Encoding];
+將NSData轉換成NSString，但是在Swift下對於字串有自己專用的Type String
+我原本以為應該會有 String.stringWithData(data, encoding=.UTF8) 或是 String(data, encoding=.UTF8) 之類的方法可以用，結果找了半天都找不到。
+查了半天，結果終於找到解法：
+var string : String = NSString(data: data, encoding: NSUTF8StringEncoding)
+原來因為在Swift下的String基本上背後還是NSString，所以可以直接轉換來使用。
+Swift是個好語言，不過為了與既有的Foundation架構還有Objective-C相容實在要花太多的力氣，這是目前學習Swift的一個很大的障礙，接下來就看蘋果會怎麼去發展這個潛力無窮的新語言囉。">
+<meta name="author" content="兔子">
+<link rel="canonical" href="http://localhost:1313/posts/2014-10-19_swift%E4%B8%8B%E5%B0%87nsdata%E8%BD%89%E6%8F%9B%E6%88%90string/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.f49d66caae9ea0fd43f21f29e71a8d3e284517ed770f2aa86fa012953ad3c9ef.css" integrity="sha256-9J1myq6eoP1D8h8p5xqNPihFF&#43;13Dyqob6ASlTrTye8=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
@@ -18,7 +26,7 @@
 <link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/404.html">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/2014-10-19_swift%E4%B8%8B%E5%B0%87nsdata%E8%BD%89%E6%8F%9B%E6%88%90string/">
 <noscript>
     <style>
         #theme-toggle,
@@ -58,7 +66,7 @@
 </noscript>
 </head>
 
-<body class="list" id="top">
+<body class="" id="top">
 <script>
     if (localStorage.getItem("pref-theme") === "dark") {
         document.body.classList.add('dark');
@@ -102,7 +110,35 @@
     </nav>
 </header>
 <main class="main">
-<div class="not-found">404</div>
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Swift下將NSData轉換成String
+    </h1>
+    <div class="post-meta"><span title='2014-10-19 14:58:58.623 +0000 UTC'>October 19, 2014</span>&nbsp;·&nbsp;兔子
+
+</div>
+  </header> 
+  <div class="post-content"><p>Swift中跟Foundation之間的恩怨情仇實在剪不斷理還亂。</p>
+<p>在Foundation中大部份I/O時都會取得NSData格式的資料，而以前在Objective-C時取得NSData要轉成NSString需要經過
+<code>NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8Encoding];</code></p>
+<p>將NSData轉換成NSString，但是在Swift下對於字串有自己專用的Type <strong>String</strong></p>
+<p>我原本以為應該會有 <strong>String.stringWithData(data, encoding=.UTF8)</strong> 或是 <strong>String(data, encoding=.UTF8)</strong> 之類的方法可以用，結果找了半天都找不到。</p>
+<p>查了半天，結果終於找到解法：
+<code>var string : String = NSString(data: data, encoding: NSUTF8StringEncoding)</code></p>
+<p>原來因為在Swift下的String基本上背後還是NSString，所以可以直接轉換來使用。</p>
+<p>Swift是個好語言，不過為了與既有的Foundation架構還有Objective-C相容實在要花太多的力氣，這是目前學習Swift的一個很大的障礙，接下來就看蘋果會怎麼去發展這個潛力無窮的新語言囉。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
     </main>
     
 <footer class="footer">

@@ -5,11 +5,23 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="noindex, nofollow">
-<title>404 Page not found | Henry Tseng</title>
+<title>用Swift寫Core Data會遇到的Type錯誤 | Henry Tseng</title>
 <meta name="keywords" content="">
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/404.html">
+<meta name="description" content="這幾天用Swift撰寫Core Data的應用時總是會出現一些詭異的錯誤，像是下面這段Code：
+var fetchRequest = NSFetchRequest(entityName: “Person”)   var people = appDelegate.managedObjectContext?.executeFetchRequest(fetchRequest, error: nil)   var person = people?.first as Person   println(people)   println(person)
+同樣類似的用法，我曾遇過下面兩種奇特的狀況
+一種是第一個println有輸出Array與值，但person卻是nil。
+而另一種則是直接就顯示下面的Warning接著Crash
+
+CoreData: warning: Unable to load class named ‘Person’ for entity ‘Person’. Class not found, using default NSManagedObject instead.
+查了許多地方後終於找出了問題的所在，原來在Swift中關於Type的形式應該是 ProjectName.TypeName
+但Xcode在 .xcdatamodeld 新增Entity時，並不會將Entity指向正確的Type，格式只有 **TypeName，**導致Runtime時找不到該Type，所以不然是因為 as 的轉型態不正確而變成 nil，要不然就是直接Crash。
+我想這是諸多Swift為了相容於舊專案而衍生出來的問題之一，不過解法也相當簡單，只要到 .xcdatamodeld 檔案中的Configurations將每一個Entity的Class指向正確的地方就可以了。
+
+
+現在總算是可以正確的抓出我要的資料了。">
+<meta name="author" content="兔子">
+<link rel="canonical" href="http://localhost:1313/posts/2014-10-18_%E7%94%A8swift%E5%AF%ABcore-data%E6%9C%83%E9%81%87%E5%88%B0%E7%9A%84type%E9%8C%AF%E8%AA%A4/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.f49d66caae9ea0fd43f21f29e71a8d3e284517ed770f2aa86fa012953ad3c9ef.css" integrity="sha256-9J1myq6eoP1D8h8p5xqNPihFF&#43;13Dyqob6ASlTrTye8=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
@@ -18,7 +30,7 @@
 <link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/404.html">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/2014-10-18_%E7%94%A8swift%E5%AF%ABcore-data%E6%9C%83%E9%81%87%E5%88%B0%E7%9A%84type%E9%8C%AF%E8%AA%A4/">
 <noscript>
     <style>
         #theme-toggle,
@@ -58,7 +70,7 @@
 </noscript>
 </head>
 
-<body class="list" id="top">
+<body class="" id="top">
 <script>
     if (localStorage.getItem("pref-theme") === "dark") {
         document.body.classList.add('dark');
@@ -102,7 +114,39 @@
     </nav>
 </header>
 <main class="main">
-<div class="not-found">404</div>
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      用Swift寫Core Data會遇到的Type錯誤
+    </h1>
+    <div class="post-meta"><span title='2014-10-18 14:56:19.47 +0000 UTC'>October 18, 2014</span>&nbsp;·&nbsp;兔子
+
+</div>
+  </header> 
+  <div class="post-content"><p>這幾天用Swift撰寫Core Data的應用時總是會出現一些詭異的錯誤，像是下面這段Code：
+<code>var fetchRequest = NSFetchRequest(entityName: “Person”)   var people = appDelegate.managedObjectContext?.executeFetchRequest(fetchRequest, error: nil)   var person = people?.first as Person   println(people)   println(person)</code></p>
+<p>同樣類似的用法，我曾遇過下面兩種奇特的狀況</p>
+<p>一種是第一個println有輸出Array與值，但person卻是nil。</p>
+<p>而另一種則是直接就顯示下面的Warning接著Crash</p>
+<blockquote>
+<p><strong>CoreData: warning: Unable to load class named ‘Person’ for entity ‘Person’. Class not found, using default NSManagedObject instead.</strong></p></blockquote>
+<p>查了許多地方後終於找出了問題的所在，原來在Swift中關於Type的形式應該是 <strong>ProjectName.TypeName</strong></p>
+<p>但Xcode在 .xcdatamodeld 新增Entity時，並不會將Entity指向正確的Type，格式只有 **TypeName，**導致Runtime時找不到該Type，所以不然是因為 as 的轉型態不正確而變成 nil，要不然就是直接Crash。</p>
+<p>我想這是諸多Swift為了相容於舊專案而衍生出來的問題之一，不過解法也相當簡單，只要到 .xcdatamodeld 檔案中的Configurations將每一個Entity的Class指向正確的地方就可以了。</p>
+<p><img alt="image" loading="lazy" src="/posts/2014-10-18_%E7%94%A8swift%E5%AF%ABcore-data%E6%9C%83%E9%81%87%E5%88%B0%E7%9A%84type%E9%8C%AF%E8%AA%A4/images/1.png#layoutTextWidth"></p>
+<p><img alt="image" loading="lazy" src="/posts/2014-10-18_%E7%94%A8swift%E5%AF%ABcore-data%E6%9C%83%E9%81%87%E5%88%B0%E7%9A%84type%E9%8C%AF%E8%AA%A4/images/2.png#layoutTextWidth"></p>
+<p>現在總算是可以正確的抓出我要的資料了。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
     </main>
     
 <footer class="footer">

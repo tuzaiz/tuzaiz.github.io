@@ -5,11 +5,26 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="noindex, nofollow">
-<title>404 Page not found | Henry Tseng</title>
+<title>用Alamofire做HTTP Basic Authentication | Henry Tseng</title>
 <meta name="keywords" content="">
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/404.html">
+<meta name="description" content="這週末有個機會要做個小Sample給別人，這個Sample Project需要用到HTTP API Request且這個Request需要做HTTP Basic Authentication。
+想說有這個機會，也不是正式產品，因此就試著完全用Swift來寫，那HTTP Request當然就交給AFNetworking的作者 Mattt Thompson 所製作的另一個套件 Alamofire
+Alamofire是完全基於Swift所撰寫的HTTP Request套件，整個語法都有著濃濃的Functional Programming特性在其中。
+以下範例是直接將Alamofire.swift Copy到Bundle中的作法，如果是用CocoaPods或其他方法安裝的話，請先 import Alamofire ，然後在每個Method call前加上 Alamofire。如 request() 要改成 Alamofire.request()
+要發送一個GET方法的要求出去只要這樣：
+request(.GET, “http://this.is.url/path”)
+而要處理回傳的內容則只要接著：
+request(.GET, “http://this.is.url/path”).response {(req, res, data, error) in   // Handle in here``}
+相當簡單易懂，但對寫Objective-C久了的人來說一定很不習慣。
+不過這次的要求不單只是要送一個Request出去而已，還需要做HTTP Basic Authentication，查了一下官方Repo上的說明，要做Authentication只需要：
+request(.GET, “http://this.is.url/path”).authenticate(user: &amp;#34;username&amp;#34;, password: &amp;#34;password&amp;#34;).response {(req, res, data, error) in   // Handle in here``}
+即可，我很興奮地照著實作，然後就一直接到401 Unauthorized的錯誤…
+把發送出去的Request攔下來看，結果發現雖然有帶Authentication，但是Header中卻沒有Authentication的欄位。HTTP Basic Authentication除了要求User跟Password之外，還要求要帶一個值
+
+“Authorization” = “Basic MTIzNDo1Njc4&quot;
+後面那串亂碼是由字串 “Username:Password” 經由Base64轉換出來的字串，但是Alamofire並沒有實作這個，因此要正常運作，我們必須自行給它加上這個Header。">
+<meta name="author" content="兔子">
+<link rel="canonical" href="http://localhost:1313/posts/2015-03-08_%E7%94%A8alamofire%E5%81%9Ahttp-basic-authentication/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.f49d66caae9ea0fd43f21f29e71a8d3e284517ed770f2aa86fa012953ad3c9ef.css" integrity="sha256-9J1myq6eoP1D8h8p5xqNPihFF&#43;13Dyqob6ASlTrTye8=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
@@ -18,7 +33,7 @@
 <link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/404.html">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/2015-03-08_%E7%94%A8alamofire%E5%81%9Ahttp-basic-authentication/">
 <noscript>
     <style>
         #theme-toggle,
@@ -58,7 +73,7 @@
 </noscript>
 </head>
 
-<body class="list" id="top">
+<body class="" id="top">
 <script>
     if (localStorage.getItem("pref-theme") === "dark") {
         document.body.classList.add('dark');
@@ -102,7 +117,47 @@
     </nav>
 </header>
 <main class="main">
-<div class="not-found">404</div>
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      用Alamofire做HTTP Basic Authentication
+    </h1>
+    <div class="post-meta"><span title='2015-03-08 09:31:10.071 +0000 UTC'>March 8, 2015</span>&nbsp;·&nbsp;兔子
+
+</div>
+  </header> 
+  <div class="post-content"><p>這週末有個機會要做個小Sample給別人，這個Sample Project需要用到HTTP API Request且這個Request需要做HTTP Basic Authentication。</p>
+<p>想說有這個機會，也不是正式產品，因此就試著完全用Swift來寫，那HTTP Request當然就交給<strong>AFNetworking</strong>的作者 <strong>Mattt Thompson</strong> 所製作的另一個套件 <a href="https://github.com/Alamofire/Alamofire"><strong>Alamofire</strong></a></p>
+<p>Alamofire是完全基於Swift所撰寫的HTTP Request套件，整個語法都有著濃濃的Functional Programming特性在其中。</p>
+<p>以下範例是直接將Alamofire.swift Copy到Bundle中的作法，如果是用CocoaPods或其他方法安裝的話，請先 <em>import Alamofire</em> ，然後在每個Method call前加上 <em>Alamofire</em>。如 <em>request() 要改成 Alamofire.request()</em></p>
+<p>要發送一個GET方法的要求出去只要這樣：
+<code>request(.GET, “http://this.is.url/path”)</code></p>
+<p>而要處理回傳的內容則只要接著：
+<code>request(.GET, “http://this.is.url/path”).response {(req, res, data, error) in   // Handle in here``}</code></p>
+<p>相當簡單易懂，但對寫Objective-C久了的人來說一定很不習慣。</p>
+<p>不過這次的要求不單只是要送一個Request出去而已，還需要做HTTP Basic Authentication，查了一下官方Repo上的說明，要做Authentication只需要：
+<code>request(.GET, “http://this.is.url/path”).authenticate(user: &amp;#34;username&amp;#34;, password: &amp;#34;password&amp;#34;).response {(req, res, data, error) in   // Handle in here``}</code></p>
+<p>即可，我很興奮地照著實作，然後就一直接到<strong>401 Unauthorized</strong>的錯誤…</p>
+<p>把發送出去的Request攔下來看，結果發現雖然有帶Authentication，但是Header中卻沒有Authentication的欄位。HTTP Basic Authentication除了要求User跟Password之外，還要求要帶一個值</p>
+<blockquote>
+<p><em>“Authorization” = “Basic MTIzNDo1Njc4&quot;</em></p></blockquote>
+<p>後面那串亂碼是由字串 “Username:Password” 經由Base64轉換出來的字串，但是Alamofire並沒有實作這個，因此要正常運作，我們必須自行給它加上這個Header。</p>
+<p>首先我們要產生這個Hash字串：
+<code>let originString = “username:password”``let originStringData = originString.dataUsingEncoding(NSUTF8StringEncoding) // String -&amp;gt; NSData?``let hashString = originStringData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(0)) // NSData! -&amp;gt; String</code></p>
+<p>然後把產生出來的Hash加到HTTP Request Header中：
+<code>Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders = [&amp;#34;Authorization&amp;#34;: &amp;#34;Basic \(hashString)&amp;#34;]</code></p>
+<p>這樣就可以通過HTTP Basic Authentication的認證了。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
     </main>
     
 <footer class="footer">

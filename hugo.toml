@@ -1,6 +1,6 @@
-baseURL = 'https://example.org/'
-languageCode = 'en-us'
-title = 'My New Hugo Site'
+baseURL = 'https://tuzaiz.github.io/'
+languageCode = 'zh-tw'
+title = 'Henry Tseng'
 theme = 'PaperMod'
 [caches]
   [caches.images]

@@ -5,11 +5,33 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="noindex, nofollow">
-<title>404 Page not found | Henry Tseng</title>
+<title>利用Generic Type跟Extension來優化Storyboard取得UIViewController的動作 | Henry Tseng</title>
 <meta name="keywords" content="">
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/404.html">
+<meta name="description" content="每次在處理從Storyboard中取出ViewController的動作時，大多都會用到類似下面這樣的程式碼：
+let viewController = storyboard.instantiateViewController(withIdentifier: &amp;#34;SomeViewController&amp;#34;) as! SomeViewController
+而今天我在做第N次這樣的動作時心想，不知道有沒有辦法讓這一段變得更加的直覺。
+簡單地分析了一下，主要我想解決的問題是：
+
+使用字串作爲Identifier容易因爲錯字而導致錯誤
+必須要強制轉型成正確的Type
+
+在確定了想改善的方向之後我就開始規劃。首先我先建立一個Struct去存放原本需要的Identifier字串，然後利用Generic Type來將我們想要轉換的Type給存放起來，所以就產生像下面這樣的Struct：
+`struct StoryboardIdentifier&lt;T: UIViewController&gt; {
+var identifier: String
+var type: T.Type
+init(identifier: String, type: T.Type) {  
+    self.identifier = identifier  
+    self.type = type  
+}  
+
+}`
+建立好架構後，就用Extension將前面舉例的SomeViewController的Type跟Identifier定義爲一個static variable：
+extension StoryboardIdentifier {   static var some: StoryboardIdentifier&amp;lt;SomeViewController&amp;gt; {   return StoryboardIdentifier&amp;lt;SomeViewController&amp;gt;(identifier: &amp;#34;SomeViewController&amp;#34;, type: SomeViewController.self)   }   }
+這樣，就可以直接用 StorybosardIdentifier.some 這樣的方式去取得那個我們定義好的Identifier。
+但因爲原本的UIStoryboard並不認識StoryboardIdentifier這個Struct，所以我利用Extension去給它增加一個Method，將帶入的StoryboardIdentifier給轉換成對應的UIViewController：
+extension UIStoryboard {   func instantiateViewController&amp;lt;T&amp;gt;(withIdentifier identifier: StoryboardIdentifier&amp;lt;T&amp;gt;) -&amp;gt; T {   return self.instantiateViewController(withIdentifier: identifier.identifier) as! T   }   }">
+<meta name="author" content="兔子">
+<link rel="canonical" href="http://localhost:1313/posts/2018-01-22_%E5%88%A9%E7%94%A8generic-type%E8%B7%9Fextension%E4%BE%86%E5%84%AA%E5%8C%96storyboard%E5%8F%96%E5%BE%97uiviewcontroller%E7%9A%84%E5%8B%95%E4%BD%9C/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.f49d66caae9ea0fd43f21f29e71a8d3e284517ed770f2aa86fa012953ad3c9ef.css" integrity="sha256-9J1myq6eoP1D8h8p5xqNPihFF&#43;13Dyqob6ASlTrTye8=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
@@ -18,7 +40,7 @@
 <link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/404.html">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/2018-01-22_%E5%88%A9%E7%94%A8generic-type%E8%B7%9Fextension%E4%BE%86%E5%84%AA%E5%8C%96storyboard%E5%8F%96%E5%BE%97uiviewcontroller%E7%9A%84%E5%8B%95%E4%BD%9C/">
 <noscript>
     <style>
         #theme-toggle,
@@ -58,7 +80,7 @@
 </noscript>
 </head>
 
-<body class="list" id="top">
+<body class="" id="top">
 <script>
     if (localStorage.getItem("pref-theme") === "dark") {
         document.body.classList.add('dark');
@@ -102,7 +124,52 @@
     </nav>
 </header>
 <main class="main">
-<div class="not-found">404</div>
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      利用Generic Type跟Extension來優化Storyboard取得UIViewController的動作
+    </h1>
+    <div class="post-meta"><span title='2018-01-22 16:00:31.966 +0000 UTC'>January 22, 2018</span>&nbsp;·&nbsp;兔子
+
+</div>
+  </header> 
+  <div class="post-content"><p>每次在處理從Storyboard中取出ViewController的動作時，大多都會用到類似下面這樣的程式碼：
+<code>let viewController = storyboard.instantiateViewController(withIdentifier: &amp;#34;SomeViewController&amp;#34;) as! SomeViewController</code></p>
+<p>而今天我在做第N次這樣的動作時心想，不知道有沒有辦法讓這一段變得更加的直覺。</p>
+<p>簡單地分析了一下，主要我想解決的問題是：</p>
+<ol>
+<li>使用字串作爲Identifier容易因爲錯字而導致錯誤</li>
+<li>必須要強制轉型成正確的Type</li>
+</ol>
+<p>在確定了想改善的方向之後我就開始規劃。首先我先建立一個Struct去存放原本需要的Identifier字串，然後利用Generic Type來將我們想要轉換的Type給存放起來，所以就產生像下面這樣的Struct：
+`struct StoryboardIdentifier&lt;T: UIViewController&gt; {<br>
+var identifier: String<br>
+var type: T.Type</p>
+<pre><code>init(identifier: String, type: T.Type) {  
+    self.identifier = identifier  
+    self.type = type  
+}  
+</code></pre>
+<p>}`</p>
+<p>建立好架構後，就用Extension將前面舉例的SomeViewController的Type跟Identifier定義爲一個static variable：
+<code>extension StoryboardIdentifier {   static var some: StoryboardIdentifier&amp;lt;SomeViewController&amp;gt; {   return StoryboardIdentifier&amp;lt;SomeViewController&amp;gt;(identifier: &amp;#34;SomeViewController&amp;#34;, type: SomeViewController.self)   }   }</code></p>
+<p>這樣，就可以直接用 StorybosardIdentifier.some 這樣的方式去取得那個我們定義好的Identifier。</p>
+<p>但因爲原本的UIStoryboard並不認識StoryboardIdentifier這個Struct，所以我利用Extension去給它增加一個Method，將帶入的StoryboardIdentifier給轉換成對應的UIViewController：
+<code>extension UIStoryboard {   func instantiateViewController&amp;lt;T&amp;gt;(withIdentifier identifier: StoryboardIdentifier&amp;lt;T&amp;gt;) -&amp;gt; T {   return self.instantiateViewController(withIdentifier: identifier.identifier) as! T   }   }</code></p>
+<p>到此剩下的我們就可以利用下面這樣的寫法從Storyboard中取得ViewController。
+<code>let vc = storyboard.instantiateViewController(withIdentifier: .some) // Type就會是SomeViewController</code></p>
+<p>這是今天的一個小嘗試，往後就只需要用Extension給StoryboardIdentifier增加定義其他的ViewController就可以用相同的方法，既避免了打錯字造成的錯誤，又減少需要轉型的動作。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
     </main>
     
 <footer class="footer">
